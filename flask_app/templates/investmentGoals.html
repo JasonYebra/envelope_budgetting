@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/needsPage.css') }}">
+    <title>dashboard</title>
+</head>
+    <body class="grey darken-3">
+<!-- header-->
+        <header>
+            <nav class="nav-extended transparent">
+                <div class="nav-wrapper container">
+                    <a href="/home" class="brand-logo">SomeKind of Logo</a>
+                    <ul id="nav-mobile" class="right">
+                        <li><a href="/logout" class="btn">Logout</a></li>
+                    </ul>
+                </div>
+                <div class="nav-content container center">
+                    <ul class="tabs tabs-transparent">
+                        <li class="tab"><a href="/home">Home</a></li>
+                        <li class="tab"><a href="">Investment Goals</a></li>
+                        <li class="tab"><a class="active" href="/needs_page">Needs Goals</a></li>
+                        <li class="tab"><a href="#test3">Wants Goals</a></li>
+                        <li class="tab"><a href="#test4">Met Goals</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header><br><br>
+<!-- endheader -->
+
+<!-- body  -->
+        <div class="container">
+            <h1 class="center white-text"><i class="material-icons medium">build</i> <span class="blue-text">U</span>nder <span class="red-text">C</span>onstru<span class="yellow-text">...</span></h1>
+        </div>
+        <div class="container">
+            <h2 class="center white-text">This is where the API will live</h2>
+        </div>
+<!-- endbody -->
+
+<!-- modal -->
+        <div class="modal" id="deposit">
+            <div class="modal-content">
+                <h5>Deposit Amount</h5>
+                <form action="/process_deposit" method="POST">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="goalid" type="hidden" name="id">
+                            <input name="deposit" type="number" class="validate" placeholder="1000">
+                        </div>
+                    </div>
+                    <input type="submit" class="btn blue accent-3" value="Deposit">
+                </form>
+            </div>
+        </div>
+        <div class="modal" id="withdraw">
+            <div class="modal-content">
+                <h5>Withdraw Amount</h5>
+                <form action="/process_withdraw" method="POST">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="goalid" type="hidden" name="id">
+                            <input name="withdraw" type="number" class="validate" placeholder="1000">
+                        </div>
+                    </div>
+                    <input type="submit" class="btn red accent-3" value="Withdraw">
+                </form>
+            </div>
+        </div>
+
+        <!-- add goal modal -->
+        <div class="modal" id="addGoals">
+            <div class="modal-content">
+                <h5 class="center-align">Add Goal</h5>
+                <div class="container">
+                    <form class="col s12" action="/process_addNeedsGoal" method="POST">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input name="name" type="text" class="validate" placeholder="Rent, Car, Bills, ect...">
+                                <label for="name" class="active">Name Goal</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input name="deadline" type="date" class="validate">
+                                <label for="deadline" class="active">Goal Deadline</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input name="goal_amount" type="number" class="validate">
+                                <label for="goal_amount" class="active">Goal Amount</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input name="current_amount" type="number" class="validate">
+                                <label for="current_amount" class="active">Deposit</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <label for="description" class="active">Description (Optional)</label>
+                                <textarea name="description" cols="30" rows="10"></textarea>
+                            </div>
+                        </div>
+                        <input type="submit" class="btn blue accent-3">
+                    </form>
+                </div>
+            </div>
+
+        </div>
+<!-- endModal -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                    $('.modal').modal();
+                });
+        </script>
+        <script>
+            let modals = document.getElementsByClassName('modal-trigger')
+            for(let modal of modals){
+                modal.onclick = function(){
+                    document.getElementById('goalid').value=modal.getAttribute("goalid")
+                }
+            }
+            // function idswap(){
+            //     document.getElementById('goalid').value=
+            // }
+        </script>
+    </body>
+</html>

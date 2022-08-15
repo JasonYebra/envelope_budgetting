@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/needsPage.css') }}">
+    <title>dashboard</title>
+</head>
+    <body class="grey darken-3">
+<!-- header-->
+        <header>
+            <nav class="nav-extended transparent">
+                <div class="nav-wrapper container">
+                    <a href="/home" class="brand-logo">SomeKind of Logo</a>
+                    <ul id="nav-mobile" class="right">
+                        <li><a href="/logout" class="btn">Logout</a></li>
+                    </ul>
+                </div>
+                <div class="nav-content container center">
+                    <ul class="tabs tabs-transparent">
+                        <li class="tab"><a href="/home">Home</a></li>
+                        <li class="tab"><a href="">Investment Goals</a></li>
+                        <li class="tab"><a class="active" href="">Needs Goals</a></li>
+                        <li class="tab"><a href="#test3">Wants Goals</a></li>
+                        <li class="tab"><a href="#test4">Met Goals</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header><br><br>
+<!-- endheader -->
+
+<!-- body  -->
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="/needs_page" class="brand-logo">{{one_user_need.name}}</a>
+                <ul id="nav-mobile" class="right">
+                    <li><a href="/needs_page" class="btn">Back</a></li>
+                </ul>
+            </div>
+            <h4 class="white-text">Deadline: {{one_user_need.deadline}}</h4>
+            <h4 class="white-text">Goal Amonut: {{one_user_need.goal_amount}}</h4>
+            <h4 class="white-text">Current Amount: {{one_user_need.current_amount}}</h4>
+            <h4 class="white-text">Description: {{one_user_need.description}}</h4>
+        </div>
+        <div class="container">
+            <a goalid="{{one_user_need.id}}" class="right modal-trigger edit" href="#editGoals"><i class="medium material-icons">gear</i> edit</a>
+        </div>
+<!-- endbody -->
+
+<!-- modal -->
+
+        <!-- add goal modal -->
+        <div class="modal" id="editGoals">
+            <div class="modal-content">
+                <h5 class="center-align">Edit Goal</h5>
+                <div class="container">
+                    <form class="col s12" action="/process_updateGoal" method="POST">
+                        <input id="id_goal_input" type="hidden" name="id">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input name="name" type="text" class="validate" value="{{one_user_need.name}}">
+                                <label for="name" class="active">Name Goal</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input name="deadline" type="date" class="validate" value="{{one_user_need.deadline}}">
+                                <label for="deadline" class="active">Goal Deadline</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input name="goal_amount" type="number" class="validate" value="{{one_user_need.goal_amount}}">
+                                <label for="goal_amount" class="active">Goal Amount</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <label for="description" class="active">Description (Optional)</label>
+                                <textarea name="description" cols="30" rows="10">{{one_user_need.description}}</textarea>
+                            </div>
+                        </div>
+                        <input type="submit" value="Update" class="btn blue accent-3 white-text">
+                    </form>
+                </div>
+            </div>
+
+        </div>
+<!-- endModal -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                    $('.modal').modal();
+                });
+        </script>
+        <script>
+            let deposit = document.getElementsByClassName('edit')
+            for(let modal of deposit){
+                modal.onclick = function(){
+                    document.getElementById('id_goal_input').value=modal.getAttribute("goalid")
+                }
+            }
+        </script>
+    </body>
+</html>

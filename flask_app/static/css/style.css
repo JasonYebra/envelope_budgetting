@@ -1,0 +1,9 @@
+#add_user{
+    border-top:1px solid rgb(179, 178, 178);
+    padding: 10px;
+    width: 500px;
+}
+
+#flash{
+    color: red;
+}
